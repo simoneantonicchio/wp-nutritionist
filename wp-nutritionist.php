@@ -11,32 +11,38 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
-defined('ABSPATH') or die ('Go out');
+defined('ABSPATH') or die('Go out');
 
-class WP_Nutritionist{
-    function activate(){
-        //activate action
-    }
+// Plugin absolute path
+define('WPN_ABSPATH', plugin_dir_path(__FILE__));
 
-    function deactivate(){
-        //deactivate action
-    }
-
-    function uninstall(){
-        //unistall action
-    }
-}
-
-if (class_exists('WP_Nutritionist')){
-    $wp_nutritionist = new WP_Nutritionist();
-}
+// Plugin URL
+define('WPN_URL', plugin_dir_url(__FILE__));
 
 register_activation_hook(__FILE__, array($wp_nutritionist, 'activate'));
 register_deactivation_hook(__FILE__, array($wp_nutritionist, 'deactivate'));
 
-/* Init funciont */
+/* Init function */
 
-function init() {
+
+
+// Load main class file
+require_once WPN_ABSPATH . 'includes/class-init.php';
+/**
+ * Initilize class function
+ * @since 1.0
+ */
+function wcss_initialize()
+{
+    $initialize = new Init;
+    $initialize->init();
+}
+
+//  Hook plugin with plugin loaded
+add_action('plugins_loaded', 'wcss_initialize', 20);
+
+function init()
+{
 
     // adding boostrap
     wp_register_style('bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css');
@@ -47,35 +53,6 @@ function init() {
     //add fontawesome
     wp_register_style('custom-fa', 'https://use.fontawesome.com/releases/v5.0.6/css/all.css');
     wp_enqueue_style('custom-fa');
-
 }
 
-add_action('admin_init','init');
-
-
-/* Add menu voice to WP-Backend*/
-
-function nutrionist_home_panel()
-{
-    echo '<h1>Ciao Nutrizionista</h1>';
-}
-
-function patient_home_panel()
-{
-    echo '<h3>Add patient</h3>
-    <button type="button" class="btn btn-primary">Add</button>
-    ';
-}
-
-function wp_nutritionist_menu_pages() {
-    add_menu_page('Home', 'WP-Nutritionist', 'manage_options', 'my-menu', 'nutrionist_home_panel');
-    add_submenu_page('my-menu', 'Home','Home','manage_options', 'my-menu', 'nutrionist_home_panel');
-    add_submenu_page('my-menu', 'Patient', 'Patient','manage_options', 'patient', 'patient_home_panel');
-
-}
-
-
-add_action('admin_menu', 'wp_nutritionist_menu_pages');
-
-
-
+add_action('admin_init', 'init');
