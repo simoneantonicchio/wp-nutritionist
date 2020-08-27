@@ -3,7 +3,7 @@ A Wordpress plugin suitable for nutritionists
 
 Hello, I wanna create a wordpress plugin to help nutritionist in their job. 
 
-The nutritionist will have an admin panel where will be able to add our patient and set and check a lot of parameters ( age, weight, height ecc..)
+The nutritionist will have an admin panel where will be able to add his patient and set and check a lot of parameters ( age, weight, height ecc..)
 
 The plugin develop will be followed and tested by real-life nutristionist!
 
