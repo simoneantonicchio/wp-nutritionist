@@ -34,20 +34,43 @@ if (class_exists('WP_Nutritionist')){
 register_activation_hook(__FILE__, array($wp_nutritionist, 'activate'));
 register_deactivation_hook(__FILE__, array($wp_nutritionist, 'deactivate'));
 
+/* Init funciont */
+
+function init() {
+
+    // adding boostrap
+    wp_register_style('bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css');
+    wp_enqueue_style('bootstrap_css');
+    wp_register_script('bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js');
+    wp_enqueue_script('bootstrap_js');
+
+    //add fontawesome
+    wp_register_style('custom-fa', 'https://use.fontawesome.com/releases/v5.0.6/css/all.css');
+    wp_enqueue_style('custom-fa');
+
+}
+
+add_action('admin_init','init');
+
 
 /* Add menu voice to WP-Backend*/
 
 function nutrionist_home_panel()
 {
-    echo '<div class="alert alert-primary" role="alert">
-    A simple primary alert—check it out!
-  </div>';
+    echo '<h1>Ciao Nutrizionista</h1>';
+}
+
+function patient_home_panel()
+{
+    echo '<h3>Add patient</h3>
+    <button type="button" class="btn btn-primary">Add</button>
+    ';
 }
 
 function wp_nutritionist_menu_pages() {
     add_menu_page('Home', 'WP-Nutritionist', 'manage_options', 'my-menu', 'nutrionist_home_panel');
     add_submenu_page('my-menu', 'Home','Home','manage_options', 'my-menu', 'nutrionist_home_panel');
-    add_submenu_page('my-menu', 'Patient', 'Patient','manage_options', 'patient', 'nutrionist_home_panel');
+    add_submenu_page('my-menu', 'Patient', 'Patient','manage_options', 'patient', 'patient_home_panel');
 
 }
 
