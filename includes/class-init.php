@@ -13,10 +13,10 @@ final class Init
 
 
         // Classes
+        
         //  Common Classes
 
         // Admin classes
-
         if (is_admin()) {
             require_once WPN_ABSPATH . 'includes/classes/admin/class-admin-menu.php';
         }
