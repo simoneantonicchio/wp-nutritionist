@@ -1,4 +1,5 @@
-<div class="wrapper">
-    <h3>Add patient</h3>
-    <button type="button" class="btn btn-primary">Add</button>
+<div class="wrap">
+    <h1 class="wp-heading-inline">Patients</h1>
+
+    <a href="<?php echo admin_url( 'admin.php?page=add-patient') ?>" class="page-title-action">Add Patient</a>
 </div>

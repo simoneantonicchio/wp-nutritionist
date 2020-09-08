@@ -19,12 +19,38 @@ define('WPN_ABSPATH', plugin_dir_path(__FILE__));
 // Plugin URL
 define('WPN_URL', plugin_dir_url(__FILE__));
 
-register_activation_hook(__FILE__, array($wp_nutritionist, 'activate'));
-register_deactivation_hook(__FILE__, array($wp_nutritionist, 'deactivate'));
+/**
+* Plugin activation Hook function
+* @since 1.0
+*/
+function wpn_activation() {
+    require_once WPN_ABSPATH . 'includes/classes/class-activation.php';
+    WPN_Activation::activate();
+}
+register_activation_hook( __FILE__, 'wpn_activation' );
+
+
+// /**
+// * Plugin deactivation Hook function
+// * @since 1.0
+// */
+// function wpn_deactivation() {
+//     require_once WPN_ABSPATH . 'includes/classes/class-deactivation.php';
+//     WPN_Deactivation::deactivate();
+// }
+// register_deactivation_hook(__FILE__,  'wpn_deactivation');
+
+/**
+* Plugin uninstall Hook function
+* @since 1.0
+*/
+function wpn_uninstall() {
+    require_once WPN_ABSPATH . 'includes/classes/class-uninstall.php';
+    WPN_Uninstall::uninstall();
+}
+register_uninstall_hook(__FILE__,  'wpn_uninstall');
 
 /* Init function */
-
-
 
 // Load main class file
 require_once WPN_ABSPATH . 'includes/class-init.php';
@@ -41,18 +67,4 @@ function wcss_initialize()
 //  Hook plugin with plugin loaded
 add_action('plugins_loaded', 'wcss_initialize', 20);
 
-function init()
-{
 
-    // adding boostrap
-    wp_register_style('bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css');
-    wp_enqueue_style('bootstrap_css');
-    wp_register_script('bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js');
-    wp_enqueue_script('bootstrap_js');
-
-    //add fontawesome
-    wp_register_style('custom-fa', 'https://use.fontawesome.com/releases/v5.0.6/css/all.css');
-    wp_enqueue_style('custom-fa');
-}
-
-add_action('admin_init', 'init');
